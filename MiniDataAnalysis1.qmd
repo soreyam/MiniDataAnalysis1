@@ -1,7 +1,7 @@
 ---
 title: "Mini Data-Analysis: Deliverable 1"
 format: gfm
-author: "Your name here"
+author: Soreya Moumouni
 ---
 
 Total points available: 74
@@ -73,7 +73,7 @@ Out of the 5 data sets listed above, choose **2** that appeal to you based on th
 
 <!-------------------------- Start your work below ---------------------------->
 
-1: hcmst — I like that this one is about relationships and it has a mix of categorical variables (like relationship quality) and numeric ones (like age and relationship length), so there's a lot to work with. It also connects to a real event (COVID-19) which makes the questions more interesting.
+1: hcmst — I like that this one is about relationships and it has a mix of categorical variables (like relationship quality) and numeric ones (like age and relationship length), so there's a lot to work with. It also connects to a real event (COVID19) which makes the questions more interesting.
 
 2: wildfire — this one is huge (26,551 rows) and I'm curious about what actually causes fires and how big they get. It has lots of weather variables like temperature and wind speed, so it seems good for exploring patterns.
 
@@ -155,17 +155,12 @@ Write your research questions **as questions**, and be specific. You can change 
 > For example, if I had chosen a `titanic` data set for my project, I might ask, "(Primary) Is there a relationship between survival and the class of the passengers? (Secondary) Does this relationship differ by gender?"
 
 <!-------------------------- Start your work below ---------------------------->
-
-
-
-
-<!----------------------------------------------------------------------------->
-
-
-
 **(Primary)** Is there a relationship between how often partners fight with each other and how they rate their relationship quality?
 
 **(Secondary)** Does the change in household income during the pandemic relate to relationship quality?
+
+<!----------------------------------------------------------------------------->
+
 
 ### 1.5: Commit  **(2 points)**
 
@@ -188,7 +183,7 @@ Your task is to create a table that calculates the proportion of missing values 
 ```{r}
 # proportion of missing values for every variable, most missing first
 hcmst |>
-  summarise(across(everything(), ~ mean(is.na(.)))) |>
+  summarize(across(everything(), ~ mean(is.na(.)))) |>
   pivot_longer(cols = everything()) |>
   rename(variable = name, prop_missing = value) |>
   arrange(desc(prop_missing))

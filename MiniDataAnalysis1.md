@@ -1,5 +1,5 @@
 # Mini Data-Analysis: Deliverable 1
-Your name here
+Soreya Moumouni
 
 Total points available: 74
 
@@ -136,7 +136,7 @@ based on their description. Write your choices below:
 1: hcmst — I like that this one is about relationships and it has a mix
 of categorical variables (like relationship quality) and numeric ones
 (like age and relationship length), so there’s a lot to work with. It
-also connects to a real event (COVID-19) which makes the questions more
+also connects to a real event (COVID19) which makes the questions more
 interesting.
 
 2: wildfire — this one is huge (26,551 rows) and I’m curious about what
@@ -282,13 +282,13 @@ change it later if needed.
 
 <!-------------------------- Start your work below ---------------------------->
 
-<!----------------------------------------------------------------------------->
-
 **(Primary)** Is there a relationship between how often partners fight
 with each other and how they rate their relationship quality?
 
 **(Secondary)** Does the change in household income during the pandemic
 relate to relationship quality?
+
+<!----------------------------------------------------------------------------->
 
 ### 1.5: Commit **(2 points)**
 
@@ -310,7 +310,7 @@ values per variable. Be sure to output the table.
 ``` r
 # proportion of missing values for every variable, most missing first
 hcmst |>
-  summarise(across(everything(), ~ mean(is.na(.)))) |>
+  summarize(across(everything(), ~ mean(is.na(.)))) |>
   pivot_longer(cols = everything()) |>
   rename(variable = name, prop_missing = value) |>
   arrange(desc(prop_missing))
