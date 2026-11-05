@@ -1,0 +1,579 @@
+# Mini Data-Analysis: Deliverable 1
+Your name here
+
+Total points available: 74
+
+# Part 0: Getting Set Up
+
+Let’s get ready to work on this assignment!
+
+**0.1: Install Packages**
+
+- Install the [`diversedata`](https://diverse-data-hub.github.io/)
+  package by typing the following into your **R console**:
+
+<!-- -->
+
+    install.packages("pak")
+    library(pak)
+    pak::pak("diverse-data-hub/diversedata")
+
+**0.2: Load Packages**
+
+Typically, R Packages are loaded in at the very beginning of the
+analysis. If you later want to use other packages, please come back and
+add them here:
+
+``` r
+library(tidyverse)
+library(diversedata)
+library(moderndive)
+#--- Add any other packages below this line ---#
+```
+
+# Task 1: Choose a Data Set and Research Question
+
+You may use one of the datasets from class or one of the datasets from
+`diversedatahub`.
+
+- **boulder-housing**: This data set contains housing information for
+  the Boulder, Colorado area. *\[Add a second sentence here describing
+  what the data covers — e.g., the variables included or what question
+  it was collected to answer.\]*
+
+- **squirrel-census**: Thes\[[great NYC squirrel
+  census](https://www.thesquirrelcensus.com/),`squirrel-data.csv` –
+  squirrel sightings recorded around Manhattan and Brooklyn parks.
+
+- **rolling stone**: A [new visual
+  essay](https://pudding.cool/2024/03/greatest-music/) from The Pudding
+  compares Rolling Stone’s “500 Greatest Albums of All Time” lists from
+  2003, 2012, and 2020. A methodology note says the project began with a
+  spreadsheet by Chris Eckert and eventually led the authors to develop
+  a dataset of their own. Theirs lists every album in the rankings — its
+  name, genre, release year, 2003/2012/2020 rank, the artist’s name,
+  birth year, gender, and more — plus each year’s voters. \[h/t Jason
+  Kottke\]
+
+- **coffee census**: In 2023, [British
+  YouTuber](https://www.youtube.com/channel/UCMb0O2CdPBNi-QqPk5T3gsQ)
+  (and former [World Barista
+  Champion](https://www.jameshoffmann.co.uk/work#/coffee-competitions/))
+  James Hoffman virtually hosted the [Great American Coffee Taste
+  Test](https://www.youtube.com/watch?v=1fN_z4-EcOU), during which
+  thousands of people simultaneously blind-tasted the same four coffees.
+  Hoffman has published a [video summarizing the
+  results](https://www.youtube.com/watch?v=bMOOQfeloH0), as well as [a
+  spreadsheet of anonymized survey
+  responses](https://bit.ly/gacttCSV+)from 4,000+ participants. It
+  includes tasters’ demographics, general coffee drinking habits and
+  preferences, assessments of the four coffees, and more. \[h/t Dan
+  Brady\] (via
+  [data-is-plural](https://www.data-is-plural.com/archive/2023-11-15-edition/))
+
+- **wildfire**: This data set contains information on wildfires in
+  Canada, compiled from official government sources under the Open
+  Government Licence – Alberta. The data was gathered to monitor,
+  assess, and respond to wildfire risks across different regions.
+  Wildfires have far-reaching environmental, social, and economic
+  consequences. From an equity and inclusion perspective, analyzing
+  wildfire data can reveal geographic and resource-based disparities in
+  detection and containment efforts, and highlight how certain
+  populations face greater risks due to climate change and limited
+  infrastructure. There are 26551 rows and 35 columns.
+
+- **genderassessment**: Collected in 2023, the data allows for
+  comparative evaluation across countries, sectors, and ownership types
+  (e.g., Public, Private, Government). Each record represents a company
+  and its corresponding evaluation across 28 detailed gender related
+  indicators, offering a comprehensive snapshot of corporate gender
+  equity worldwide. There are 2000 rows and 29 variables
+
+- **hcmst**: This data set is adapted from the original data set [How
+  Couples Meet and Stay Together 2017,
+  2022](https://data.stanford.edu/hcmst2017). This study, led by
+  researchers from Stanford University, surveyed 1,722 U.S. adults in
+  2022 to explore how relationships form and change with time and
+  focused on dating habits and the impact of the COVID-19 pandemic on
+  relationships. This adapted data set focuses on variables that may
+  affect the quality of the relationship, considering demographic
+  characteristics of the subjects, couple dynamics, as well as
+  COVID-19-related variables. The COVID-19 pandemic had a [significant
+  impact](https://pmc.ncbi.nlm.nih.gov/articles/PMC10009005/) on
+  romantic relationships in the United States. This data set enables
+  exploration of how external factors, like the health of the subjects
+  and changes in income, as well as personal behaviors, like conflict
+  and intimate dynamics, relate to an individual’s perception of the
+  quality of the relationship. There are 1328 rows and 21 columns.
+
+- **womensmarchmadness**: This adapted data set contains historical
+  records of every NCAA Division I Women’s Basketball Tournament
+  appearance since the tournament began in 1982 up until 2018, capturing
+  tournament results across more than four decades of collegiate women’s
+  basketball. All data is sourced from the NCAA and contains the data
+  behind the story [The Rise and Fall Of Women’s NCAA Tournament
+  Dynasties](https://fivethirtyeight.com/features/louisiana-tech-was-the-uconn-of-the-80s/).
+  The rise in popularity of the NCAA Women’s March Madness, fueled by
+  athletes like Caitlin Clark and Paige Bueckers, reflects a broader
+  cultural shift in the recognition of women’s sports. Beyond
+  entertainment and athletic achievement, women’s participation in sport
+  has social and professional benefits. There are 2092 rows and 20
+  columns.
+
+*Note: We encourage you to use one of the options above, but if you have
+a data set that you’d really like to use, please check with a member of
+the teaching team to see whether the data set is of appropriate
+complexity. If approved, please add a brief description of the data
+here.*
+
+### 1.1: Choose 2 data sets **(2 points)**
+
+Out of the 5 data sets listed above, choose **2** that appeal to you
+based on their description. Write your choices below:
+
+<!-------------------------- Start your work below ---------------------------->
+
+1: hcmst — I like that this one is about relationships and it has a mix
+of categorical variables (like relationship quality) and numeric ones
+(like age and relationship length), so there’s a lot to work with. It
+also connects to a real event (COVID-19) which makes the questions more
+interesting.
+
+2: wildfire — this one is huge (26,551 rows) and I’m curious about what
+actually causes fires and how big they get. It has lots of weather
+variables like temperature and wind speed, so it seems good for
+exploring patterns.
+
+<!----------------------------------------------------------------------------->
+
+### 1.2: Explore the Data **(12 points)**
+
+One way to narrowing down your selection is to *explore* the data sets.
+Use your knowledge of `dplyr` to summarize three variables in each of
+the data sets (for example, listing what levels of a categorical
+variable exist, or calculating the mean of a continuous variable of
+interest). Write a sentence that describes your findings for each
+variable explored. You may use multiple R code chunks if preferred.
+
+<!-------------------------- Start your work below ---------------------------->
+
+#### Data Set 1
+
+``` r
+# looking at relationship quality, relationship length, and pandemic change
+count(hcmst, relationship_quality)
+```
+
+    # A tibble: 5 × 2
+      relationship_quality     n
+      <chr>                <int>
+    1 excellent              686
+    2 fair                   105
+    3 good                   504
+    4 poor                    28
+    5 very_poor                5
+
+``` r
+mean(hcmst$relationship_duration, na.rm = TRUE)
+```
+
+    [1] 27.22789
+
+``` r
+count(hcmst, rel_change_during_pandemic)
+```
+
+    # A tibble: 3 × 2
+      rel_change_during_pandemic     n
+      <chr>                      <int>
+    1 better_than_before           239
+    2 no_change                   1017
+    3 worse_than_before             72
+
+Write your findings here.
+
+The relationship_quality variable has 5 levels: excellent (686 people),
+good (504), fair (105), poor (28), and very_poor (5). Most people rate
+their relationship as excellent or good, so it’s skewed towards the
+positive end.
+
+The average relationship duration is about 27.2 years, which makes sense
+since the survey asked about adults of all ages (the data has people up
+to their 80s and 90s).
+
+For rel_change_during_pandemic, most people (1,017 out of 1,328) said
+their relationship didn’t change during the pandemic. 239 said it got
+better and only 72 said it got worse, so the pandemic didn’t hurt most
+relationships in this sample.
+
+#### Data Set 2
+
+``` r
+# looking at fire cause, fire size, and wind speed
+count(wildfire, general_cause) |>
+  slice_max(n, n = 5)
+```
+
+    # A tibble: 5 × 2
+      general_cause           n
+      <chr>               <int>
+    1 Lightning            9292
+    2 Recreation           5730
+    3 Resident             4442
+    4 Incendiary           2310
+    5 Power Line Industry  1429
+
+``` r
+mean(wildfire$current_size, na.rm = TRUE)
+```
+
+    [1] 249.1997
+
+``` r
+mean(wildfire$wind_speed, na.rm = TRUE)
+```
+
+    [1] 8.860335
+
+Write your findings here.
+
+The most common general causes are Lightning (9,292 fires), Recreation
+(5,730), Resident (4,442), Incendiary (2,310), and Power Line Industry
+(1,429). So lightning is by far the biggest cause, but a lot of fires
+are also human-caused.
+
+The mean of current_size is about 249 hectares, but this is probably
+being pulled up by a few very large fires since most fires in the data
+looked tiny (like 0.01 hectares) in the first rows.
+
+Average wind speed at the fire is about 8.9, which seems low, but most
+of these fires are also small so that might be why.
+
+<!----------------------------------------------------------------------------->
+
+### 1.3: Choose 1 Data Set **(2 points)**
+
+It’s time to choose only one data set. State the data set that you’ve
+chosen, and why you’ve chosen it.
+
+<!-------------------------- Start your work below ---------------------------->
+
+I’m choosing **hcmst**. The wildfire data is interesting but it’s really
+big (26,551 rows) and a lot of the variables felt more like operational
+details (detection agents, arrival dates, etc.) that I’m not sure what
+to do with yet. The hcmst data has a clear outcome variable
+(relationship_quality) that’s easy to build questions around, it’s a
+manageable size (1,328 rows), and the missing data looked low when I
+explored it. It’s also just a topic I find more interesting to dig into.
+
+<!----------------------------------------------------------------------------->
+
+### 1.4: Research Question **(4 points)**
+
+Let’s choose a primary and a secondary research question to explore.
+
+Write your research questions **as questions**, and be specific. You can
+change it later if needed.
+
+> For example, if I had chosen a `titanic` data set for my project, I
+> might ask, “(Primary) Is there a relationship between survival and the
+> class of the passengers? (Secondary) Does this relationship differ by
+> gender?”
+
+<!-------------------------- Start your work below ---------------------------->
+
+<!----------------------------------------------------------------------------->
+
+**(Primary)** Is there a relationship between how often partners fight
+with each other and how they rate their relationship quality?
+
+**(Secondary)** Does the change in household income during the pandemic
+relate to relationship quality?
+
+### 1.5: Commit **(2 points)**
+
+Commit your work and push it to GitHub. Include an informative commit
+message, and include “(1.5)” in the message.
+
+# Task 2: Further Exploring Your Chosen Data Set
+
+### 2.1: Missing Data **(6 points)**
+
+Missing data is inevitable, and can complicate analyses. Let’s see what
+variables (if any) have missing data in your chosen data set.
+
+Your task is to create a table that calculates the proportion of missing
+values per variable. Be sure to output the table.
+
+<!-------------------------- Start your work below ---------------------------->
+
+``` r
+# proportion of missing values for every variable, most missing first
+hcmst |>
+  summarise(across(everything(), ~ mean(is.na(.)))) |>
+  pivot_longer(cols = everything()) |>
+  rename(variable = name, prop_missing = value) |>
+  arrange(desc(prop_missing))
+```
+
+    # A tibble: 21 × 2
+       variable                   prop_missing
+       <chr>                             <dbl>
+     1 sex_frequency                  0.0572  
+     2 relationship_duration          0.0264  
+     3 partner_vaccinated             0.0166  
+     4 flirts_with_partner            0.0151  
+     5 partner_had_covid              0.00828 
+     6 subject_vaccinated             0.00828 
+     7 fights_with_partner            0.00527 
+     8 agree_covid_approach           0.00527 
+     9 inc_change_during_pandemic     0.00151 
+    10 subject_had_covid              0.000753
+    # ℹ 11 more rows
+
+<!----------------------------------------------------------------------------->
+
+### 2.2: Missing Data (Again) **(6 points)**
+
+Based on your research question, will this missingness pose an issue?
+For the purposes of this class (and this class only!), we will consider
+missingness a problem **if there is more than 20% of a single variable
+(that is of interest) is missing**.
+
+> For example, let’s assume I wanted to explore the following research
+> questions: “Is there a relationship between survival and the class of
+> the passengers? Does this relationship vary by gender?”. If the
+> variable indicating whether or not a person survived was missing for
+> 20% or more of the passengers, then this would be a problem. However,
+> if a variable indicating the colour of shirt a passenger was wearing
+> was missing, this probably wouldn’t be an issue as that variable is
+> quite irrelevant to my analysis!
+
+Based on this definition, is missingness an issue for your analysis? If
+so, describe how you will address this (pivoting your research question,
+for example). If you will continue with a new research question, write
+it here! **Do not go back to Task 1 and redo the analysis.** ).
+
+If missingness is not an issue, describe why.
+
+<!-------------------------- Start your work below ---------------------------->
+
+Missingness is not really an issue for my analysis. The variable with
+the most missing values is sex_frequency at about 5.7%, and everything
+else is below 3%. For my research questions, the important variables are
+relationship_quality (0% missing), fights_with_partner (about 0.5%
+missing), inc_change_during_pandemic (about 0.2% missing), and my
+numeric variables subject_age and relationship_duration (about 1% and
+2.6% missing). All of these are well under the 20% cutoff, so I can just
+drop the few rows with missing values without losing much data.
+
+<!----------------------------------------------------------------------------->
+
+### 2.3: Tidy your Data **(10 points)**
+
+Produce a tidy data set that could be used to answer your research
+questions. **Please ensure you have at least one quantitative (numeric)
+and one categorical variable in your data set. It’s okay you need to
+include a less relevant variable in your tidied data to ensure this.**
+
+To tidy your data, you should:
+
+- Create new variables (if needed)
+
+- Transform the data into a tidy form (if needed)
+
+- Remove irrelevant columns (if needed)
+
+- Comment your code throughout
+
+Show the first 6 rows of the tidied data.
+
+<!-------------------------- Start your work below ---------------------------->
+
+``` r
+# keep only the columns needed for the research questions
+hcmst_tidy <- hcmst |>
+  select(relationship_quality, fights_with_partner, rel_change_during_pandemic,
+         inc_change_during_pandemic, subject_age, relationship_duration) |>
+  # turn relationship quality into an ordered factor (very poor up to excellent)
+  mutate(
+    relationship_quality = factor(relationship_quality,
+      levels = c("very_poor", "poor", "fair", "good", "excellent"),
+      ordered = TRUE),
+    # rename duration to make it clear it's measured in years
+    relationship_years = round(relationship_duration, 1)
+  ) |>
+  select(-relationship_duration)
+
+# first 6 rows of the tidied data
+head(hcmst_tidy)
+```
+
+    # A tibble: 6 × 6
+      relationship_quality fights_with_partner rel_change_during_pandemic
+      <ord>                <chr>               <chr>                     
+    1 excellent            0_times             better_than_before        
+    2 good                 7_or_more_times     no_change                 
+    3 excellent            2_times             no_change                 
+    4 good                 0_times             no_change                 
+    5 excellent            0_times             better_than_before        
+    6 excellent            1_time              no_change                 
+    # ℹ 3 more variables: inc_change_during_pandemic <chr>, subject_age <dbl>,
+    #   relationship_years <dbl>
+
+<!----------------------------------------------------------------------------->
+
+### 2.4: Create a Table (10 points)
+
+Use any functions from the `tidyverse` to create one table that outputs
+the mean, minimum, and maximum of all numeric columns in your data,
+dropping the missing values if they exist.
+
+Show the outputted table.
+
+<!-------------------------- Start your work below ---------------------------->
+
+``` r
+# mean, min, and max for every numeric column, ignoring missing values
+hcmst_tidy |>
+  summarise(across(where(is.numeric),
+    list(mean = ~ mean(., na.rm = TRUE),
+         min  = ~ min(., na.rm = TRUE),
+         max  = ~ max(., na.rm = TRUE)))) |>
+  # reshape so each numeric variable gets its own row
+  pivot_longer(everything(),
+               names_to = c("variable", "stat"),
+               names_pattern = "(.*)_(mean|min|max)") |>
+  pivot_wider(names_from = stat, values_from = value)
+```
+
+    # A tibble: 2 × 4
+      variable            mean   min   max
+      <chr>              <dbl> <dbl> <dbl>
+    1 subject_age         55.8    23   98 
+    2 relationship_years  27.2     0  102.
+
+<!----------------------------------------------------------------------------->
+
+### 2.5: Commit **(2 points)**
+
+Commit your work and push it to GitHub. , and include “(2.7)” in the
+message.
+
+# Task 3: Tidy Your Submission Overall
+
+Check over your document and GitHub repository for the following:
+
+### 3.1: Coherence **(2 points)**
+
+The document should read sensibly from top to bottom, with no major
+continuity errors. An example of a major continuity error is having a
+data set listed for Task 3 that is not part of one of the data sets
+listed in Task 1.
+
+### 3.2: Error-free code **(2 points)**
+
+For full marks, all code in the document should run without error and be
+completely reproducible.
+
+### 3.3 README **(6 points)**
+
+There should be a file named `README.md` at the top level of your
+repository. Its contents should automatically appear when you visit the
+repository on GitHub.
+
+Minimum contents of the README file:
+
+- In a sentence or two, explains what this repository is, so that
+  future-you or someone else stumbling on your repository can be
+  oriented to the repository.
+- List the files/folders contained in the repository
+- In a sentence or two, briefly explains how to engage with the
+  repository. You can assume the person reading knows the material from
+  STAT 545A. Basically, if a visitor to your repository wants to explore
+  your project, what should they know? How can they reproduce your
+  report?
+
+### 3.4 Generative AI Disclosure **(3 points)**
+
+In this course, Generative AI can be used in the following ways:
+
+- to clarify concepts discussed in class
+
+- as an “advanced search engine” (i.e., searching error codes)
+
+- debugging code that students wrote and attempted to debug on their own
+
+Generative AI **CANNOT** be used to generate text or code (including
+comments) from scratch.
+
+Any use of Generative AI must be disclosed.
+
+**To disclose your use, please copy and paste the following template
+into the README of your GitHub Repository and fill out the relevant
+details** \[in square brackets\]. BE SPECIFIC. Saying you used it to
+debug your code is not enough. Explicitly describe where you got stuck
+
+Here is an example of a specific, explicit debug:
+
+> “I had the error `attempt to apply non-function` after running my
+> code. I used Claude to help me identify that this error was due to me
+> attempting to multiply two numbers together without the use of a `*`,
+> i.e. `(2)(3)` instead of `2*3`.”
+
+``` markdown
+
+## Generative AI Statement
+
+Generative AI (through [LIST MODELS USED, i.e. ChatGPT, CoPilot)] was used to
+help me complete  this assignment in the following ways.
+
+1. [Describe here]
+
+2. [Describe here]
+
+...
+
+I affirm that Generative AI was not used to generate text, code, or comments for
+my assessments.
+```
+
+If you did not use Generative AI, please include the following in your
+README:
+
+``` markdown
+
+## Generative AI Statement
+
+Generative AI was not used in any way throughout this assignment.
+```
+
+Assessments suspected of having AI-generated text and/or code, or
+assignments where the Generative AI use was not disclosed, will be
+flagged and temporarily assigned a grade of zero. Students will be
+required to meet with the instructor to receive a grade.
+
+### 3.5 Output **(4 points)**
+
+All output on GitHub is readable, recent and relevant:
+
+- All `.qmd` files have been rendered to their output `.md` files.
+- All rendered `.md` files are viewable without errors on Github.
+  Examples of errors: Missing plots, “Sorry about that, but we can’t
+  show files that are this big right now” messages, error messages from
+  broken R code
+- All of these output files are up-to-date – that is, they haven’t
+  fallen behind after the source (`.qmd`) files have been updated.
+- There should be no relic output files. For example, if you were
+  rendering a `.qmd` to `.html`, but then changed the output to be only
+  a markdown file, then the `.html` file is a relic and should be
+  deleted.
+
+# Step 4: Submission
+
+\*\* Submit repo link \*\*
+
+To submit this milestone, submit the github link to the repo.
+
+This assignment was authored by the team of instructors at University of
+British Colombia’s STA 545 class.
