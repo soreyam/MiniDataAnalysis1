@@ -2,7 +2,7 @@
 
 ## About This Repository
 
-This repository contains my Mini Data-Analysis project for STAT 545A. The project explores the HCMST (How Couples Meet and Stay Together) dataset to investigate relationships between relationship quality, frequency of conflict between partners, and changes in household income during the COVID-19 pandemic.
+This repository contains my Mini Data-Analysis project. The project explores the dataset to investigate relationships between relationship quality and changes in household income during the COVID-19 pandemic.
 
 ## Repository Contents
 
@@ -12,7 +12,7 @@ This repository contains my Mini Data-Analysis project for STAT 545A. The projec
 
 ## How to Use This Repository
 
-To explore the project, open the Quarto (`.qmd`) file to view the original analysis and R code. The rendered Markdown (`.md`) file provides an accessible version of the completed report.
+To explore the project, open the Quarto file to view the original analysis and R code.
 
 ## Reproducing the Report
 
